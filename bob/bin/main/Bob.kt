@@ -1,15 +1,15 @@
 object Bob {
     fun hey(input: String): String {
-        val trimmed = input.trim()
-        val hasUpperCase = input.any { it.isUpperCase() }
-        val isQuestion = trimmed.endsWith("?")
-        val isEmpty = trimmed.isEmpty()
+        val letters = input.filter { it.isLetter() }
+        val onlyUpper = letters.all { it.isUpperCase() }
+        val yelling = onlyUpper && letters.isNotEmpty()
+        val question = input.trimEnd().endsWith("?")
 
         return when {
-            isEmpty -> "Fine. Be that way!"
-            hasUpperCase && isQuestion -> "Calm down, I know what I'm doing!"
-            hasUpperCase -> "Whoa, chill out!"
-            isQuestion -> "Sure."
+            question && yelling -> "Calm down, I know what I'm doing!"
+            question -> "Sure."
+            yelling -> "Whoa, chill out!"
+            input.isBlank() -> "Fine. Be that way!"
             else -> "Whatever."
         }
     }
